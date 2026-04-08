@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 4.1)
 project(ASCII_art_generator)
-
-set(CMAKE_CXX_STANDARD 20)
-
+find_package(OpenCV REQUIRED)
+include_directories( )
 add_executable(ASCII_art_generator main.cpp)
+target_link_libraries(ASCII_art_generator PRIVATE ${OpenCV_LIBS})
+set(CMAKE_CXX_STANDARD 20)
