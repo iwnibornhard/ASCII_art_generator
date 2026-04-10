@@ -11,24 +11,37 @@ int main() {
     //defining a variable that will contain stock image
     cv::Mat imgOrg;
 
+    //path to our image, if it's one of the logos - it's relative path, if it's custom - absolute
+    std::string path;
+
+
     //asking user what logo they want to convert to ASCII
     int choiceImage;
-    std::cout << "Choose what image to convert to ASCII:\n\t1.Apple logo\n\t2.Linux logo\n\t3.Windows logo\n";
+    std::cout << "Choose what image to convert to ASCII:\n\t1.Apple logo\n\t2.Linux logo\n\t3.Windows logo\n\t4.Custom Image\n";
     std::cin >> choiceImage;
     switch (choiceImage) {
         case 1: {
             //opening apple logo
-            imgOrg = cv::imread("../images/apple.png", cv::IMREAD_UNCHANGED);
+            path = "../images/apple.png";
+            imgOrg = cv::imread(path, cv::IMREAD_UNCHANGED);
             break;
         }
         case 2: {
             //opening linux logo
-            imgOrg = cv::imread("../images/linux.png", cv::IMREAD_UNCHANGED);
+            path = "../images/linux.png";
+            imgOrg = cv::imread(path, cv::IMREAD_UNCHANGED);
             break;
         }
         case 3: {
             //opening windows logo
-            imgOrg = cv::imread("../images/win.png", cv::IMREAD_UNCHANGED);
+            path = "../images/win.png";
+            imgOrg = cv::imread(path, cv::IMREAD_UNCHANGED);
+            break;
+        }
+        case 4: {
+            std::cout << "Input absolute path to your image: \n";
+            std::cin >> path;
+            imgOrg = cv::imread(path, cv::IMREAD_UNCHANGED);
             break;
         }
         default: {
@@ -36,7 +49,6 @@ int main() {
         return -1;
         }
     }
-
     //Showing user a picture they select
     cv::resize(imgOrg, imgOrg, cv::Size(250, 250));
     cv::namedWindow("original image");
@@ -68,7 +80,6 @@ int main() {
             //asking user to input width
             std::cout << "Input the width of picture: \n";
             std::cin >> width;
-
             //creating a var where grayscale image will be stored
             cv::Mat imgGray;
             cv::cvtColor(imgOrg, imgGray, cv::COLOR_BGR2GRAY);
@@ -81,7 +92,6 @@ int main() {
             // resizing original image
             //it will be used later for alpha channel check (transparency)
             cv::resize(imgOrg, imgOrg, cv::Size(width, width/3));
-
             // \t is used for more solid output
             std::cout << "\t";
             for (int i {0}; i < imgResult.rows; i++) {
