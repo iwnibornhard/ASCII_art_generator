@@ -5,6 +5,7 @@
 </p>
 <br><i>первый пэт проект ура</i> <br>
 Wanted to share this - just a small pet-project that allows to convert images to ASCII art. 
+<br>
 ### HEAVILY WIP
 
 ## TO-DO
