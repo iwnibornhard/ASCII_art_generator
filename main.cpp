@@ -1,7 +1,9 @@
 #include <iostream>
 #include <random>
 #include <string>
+#include <sys/stat.h>
 #include "opencv2/opencv.hpp"
+
 
 int main() {
     //set of ASCII chars
@@ -39,9 +41,23 @@ int main() {
             break;
         }
         case 4: {
+            //tries to open user's image
             std::cout << "Input absolute path to your image: \n";
-            std::cin >> path;
-            imgOrg = cv::imread(path, cv::IMREAD_UNCHANGED);
+            try {
+                std::cin >> path;
+
+                //struct from <sys/stat.h> that helps to check image
+                struct stat checker;
+
+                //if image doesnt exist - throw an exception
+                if (!(stat(path.c_str(), &checker) == 0)) {
+                    throw "Error: invalid path\n";
+                }
+                imgOrg = cv::imread(path, cv::IMREAD_UNCHANGED);
+            } catch (const char* message) {
+                std::cerr << message;
+                return -1;
+            }
             break;
         }
         default: {
